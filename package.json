@@ -1,6 +1,6 @@
 {
   "name": "umapdl",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "uMap Download CLI",
   "author": "Jonas Gröger <oss@jonas.huntun.de> (https://jonasgroeger.de)",
   "bin": {
@@ -65,7 +65,9 @@
   },
   "bugs": "https://github.com/JonasGroeger/umapdl/issues",
   "keywords": [
-    "umap", "backup", "download"
+    "umap",
+    "backup",
+    "download"
   ],
   "types": "dist/index.d.ts"
 }
