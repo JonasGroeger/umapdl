@@ -1,6 +1,6 @@
 {
   "name": "umapdl",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "uMap Download CLI",
   "author": "Jonas Gröger <oss@jonas.huntun.de> (https://jonasgroeger.de)",
   "bin": {
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4",
-    "@types/mocha": "^9.0.0",
+    "@types/mocha": "^9.1.0",
     "@types/node": "^16.9.4",
     "chai": "^4",
     "eslint": "^7.32.0",
@@ -33,9 +33,9 @@
     "globby": "^11",
     "oclif": "^2",
     "shx": "^0.3.4",
-    "ts-node": "^10.2.1",
+    "ts-node": "^10.6.0",
     "tslib": "^2.3.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.6.2"
   },
   "oclif": {
     "bin": "umapdl",
@@ -65,7 +65,9 @@
   },
   "bugs": "https://github.com/JonasGroeger/umapdl/issues",
   "keywords": [
-    "umap", "backup", "download"
+    "umap",
+    "backup",
+    "download"
   ],
   "types": "dist/index.d.ts"
 }

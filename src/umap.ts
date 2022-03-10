@@ -5,9 +5,10 @@ const superagent = require('superagent');
 interface UmapdlOptions {
     resolveRemote?: boolean;
     mapId?: number;
+    domain?: string;
 }
 
-const requestUrlLayer = (url: URL, mapId: number) =>  {
+const requestUrlLayer = (url: URL, mapId: number, options: UmapdlOptions) =>  {
     return superagent
         .get(url)
         .set('Accept', '*/*')
@@ -16,29 +17,29 @@ const requestUrlLayer = (url: URL, mapId: number) =>  {
         .set('Cache-Control', 'no-cache')
         .set('Connection', 'keep-alive')
         .set('DNT', '1')
-        .set('Host', 'umap.openstreetmap.fr')
+        .set('Host', `umap.openstreetmap.${options.domain}`)
         .set('Pragma', 'no-cache')
-        .set('Referer', `https://umap.openstreetmap.fr/en/map/x_${mapId}`)
+        .set('Referer', `https://umap.openstreetmap.${options.domain}/en/map/x_${mapId}`)
         .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3423.2 Safari/537.36')
         .set('X-Requested-With', 'XMLHttpRequest')
         // Parse layer json
         .then((response: { text: string; }) => JSON.parse(response.text));
 };
 
-const requestIdLayer = (id: number, mapId: number) => {
-    return requestUrlLayer(new URL(`https://umap.openstreetmap.fr/en/datalayer/${id}/`), mapId);
+const requestIdLayer = (id: number, mapId: number, options: UmapdlOptions) => {
+    return requestUrlLayer(new URL(`https://umap.openstreetmap.${options.domain}/en/datalayer/${id}/`), mapId, options);
 };
 
-const requestMap = (id: number) => {
+const requestMap = (id: number, options: UmapdlOptions) => {
     return superagent
-        .get(`https://umap.openstreetmap.fr/en/map/x_${id}`)
+        .get(`https://umap.openstreetmap.${options.domain}/en/map/x_${id}`)
         .set('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8')
         .set('Accept-Encoding', 'gzip, deflate')
         .set('Accept-Language', 'en-US,en;q=0.9,de-DE;q=0.8,de;q=0.7')
         .set('Cache-Control', 'no-cache')
         .set('Connection', 'keep-alive')
         .set('DNT', '1')
-        .set('Host', 'umap.openstreetmap.fr')
+        .set('Host', `umap.openstreetmap.${options.domain}`)
         .set('Pragma', 'no-cache')
         .set('Upgrade-Insecure-Requests', '1')
         .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3423.2 Safari/537.36')
@@ -69,7 +70,7 @@ export const umap = {
         const remoteUrl = options.resolveRemote && _.result(layer, '_umap_options.remoteData.url');
 
         if (remoteUrl) {
-            return requestUrlLayer(remoteUrl, options.mapId)
+            return requestUrlLayer(remoteUrl, options.mapId, options)
                 .then((remoteLayer: any) => umap.normalizeLayer(remoteLayer, options))
                 .then((remoteLayer: { features: any; }) => {
                     // Replace features by remote data
@@ -112,7 +113,7 @@ export const umap = {
     },
 
     downloadLayer: function (id: number, options: UmapdlOptions = {}) {
-        return requestIdLayer(id, options.mapId)
+        return requestIdLayer(id, options.mapId, options)
             .then((body: any) => umap.normalizeLayer(body, options))
             .then((body: any) => ({
                 status: 200,
@@ -136,7 +137,7 @@ export const umap = {
             mapId: id
         });
 
-        return requestMap(id)
+        return requestMap(id, options)
             .then((body: any) => {
                 // Get related layers informations
                 const datalayers = _.result(body, 'properties.datalayers', []);

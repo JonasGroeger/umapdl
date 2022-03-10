@@ -20,7 +20,7 @@ $ npm install -g umapdl
 $ umapdl COMMAND
 running command...
 $ umapdl (--version)
-umapdl/1.0.0 linux-x64 node-v16.14.0
+umapdl/1.1.0 linux-x64 node-v16.14.0
 $ umapdl --help [COMMAND]
 USAGE
   $ umapdl COMMAND
@@ -29,28 +29,28 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`umapdl download [MAPID]`](#umapdl-download-mapid)
+* [`umapdl download [DOMAIN] [MAPID]`](#umapdl-download-domain-mapid)
 * [`umapdl help [COMMAND]`](#umapdl-help-command)
 
-## `umapdl download [MAPID]`
+## `umapdl download [DOMAIN] [MAPID]`
 
-Downloads a map from uMap using the id of the map. Example: download 726257
+Downloads a map from uMap using the id of the map. Example: download fr 726257
 
 ```
 USAGE
-  $ umapdl download [MAPID] [-r]
+  $ umapdl download [DOMAIN] [MAPID] [-r]
 
 FLAGS
   -r, --resolveRemoteLayers
 
 DESCRIPTION
-  Downloads a map from uMap using the id of the map. Example: download 726257
+  Downloads a map from uMap using the id of the map. Example: download fr 726257
 
 EXAMPLES
-  $ umapdl download 726257
+  $ umapdl download fr 726257
 ```
 
-_See code: [dist/commands/download.ts](https://github.com/JonasGroeger/umapdl/blob/v1.0.0/dist/commands/download.ts)_
+_See code: [dist/commands/download.ts](https://github.com/JonasGroeger/umapdl/blob/v1.1.0/dist/commands/download.ts)_
 
 ## `umapdl help [COMMAND]`
 
