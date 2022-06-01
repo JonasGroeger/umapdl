@@ -20,7 +20,7 @@
     "@oclif/core": "^1",
     "@oclif/plugin-help": "^5",
     "q": "^1.5.1",
-    "superagent": "^7.1.2"
+    "superagent": "^7.1.6"
   },
   "devDependencies": {
     "@types/chai": "^4",
